@@ -1,0 +1,8 @@
+FROM artifacth.sail-cloud.com/saicmotorcv/oversea-api:2023.12.14-141649-master
+
+COPY ./system/target/system-0.0.1.jar /app/app.jar
+COPY ./arthas /root
+COPY ./skywalking-agent /app
+COPY ./start.sh /app
+EXPOSE 9500
+ENTRYPOINT ["/bin/bash","/app/start.sh"]

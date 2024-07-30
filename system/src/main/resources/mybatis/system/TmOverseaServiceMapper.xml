@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stream.nz.token.dao.TmOverseaServiceMapper">
+
+    <resultMap id="BaseResultMap" type="com.stream.nz.token.model.po.TmOverseaService">
+        <id column="id" property="ascId" jdbcType="DECIMAL"/>
+        <result column="SERVICE_CODE" property="serviceCode" jdbcType="VARCHAR"/>
+        <result column="SERVICE_SECRET" property="serviceSecret" jdbcType="VARCHAR"/>
+        <result column="ASC_CODE" property="ascCode" jdbcType="VARCHAR"/>
+        <result column="ASC_ID" property="ascId" jdbcType="DECIMAL"/>
+        <result column="SAP_ACCOUNT" property="serviceSecret" jdbcType="VARCHAR"/>
+        <result column="ASC_NAME" property="ascName" jdbcType="DECIMAL"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="IS_DEL" property="isDel" jdbcType="INTEGER"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="DATE"/>
+        <result column="CREATE_BY" property="createDate" jdbcType="VARCHAR"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="DATE"/>
+        <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="queryByServiceCode" resultType="com.stream.nz.token.model.po.TmOverseaService"
+            parameterType="java.lang.String">
+        select ID,
+               SERVICE_CODE,
+               SERVICE_SECRET,
+               ASC_CODE,
+               ASC_ID,
+               SAP_ACCOUNT,
+               ASC_NAME,
+               REMARK,
+               IS_DEL,
+               CREATE_DATE,
+               CREATE_BY,
+               UPDATE_DATE,
+               UPDATE_BY
+        from tm_oversea_service t
+        where t.is_del = 0
+          and t.service_code = #{serviceCode}
+    </select>
+</mapper>

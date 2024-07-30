@@ -1,0 +1,76 @@
+<settings xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                               http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<!-- 这个值是构建系统的本地仓库的路径。默认的值是${user.home}/.m2/repository.如果一个系统想让所有登陆的用户都用同一个本地仓库的话，这个值是极其有用的 -->
+	<localRepository>/root/.m2</localRepository>
+	<servers>
+		<server>
+			<id>thirdparty-snapshots</id>
+			<username>hrhvs</username>
+			<password>AAss1234</password>
+		</server>
+		<server>
+			<id>thirdparty</id>
+			<username>hrhvs</username>
+			<password>AAss1234</password>
+		</server>
+	</servers>
+	<!-- 仓库镜像 -->
+	<mirrors>
+		<mirror>
+			<id>nexus</id>
+			<name>本地nuxus私服镜像</name>
+			<!-- 服务器镜像的URL地址 -->
+			<!-- <url>http://121.42.145.73:8081/nexus/content/groups/public/</url> -->
+			<!-- <url>http://maven.hexnova.com/nexus/content/groups/hexnova-open</url> -->
+			<url>https://dev-cv.saicmotor.com/nexus/content/groups/public</url>
+			<!-- *号表示是所有的Maven仓库镜像 -->
+			<!-- 还可以有以下几种取值：【central】、【repo1,repo2】、【*,!inhouse】、【external:*】 等 -->
+			<mirrorOf>*</mirrorOf>
+		</mirror>
+	</mirrors>
+	<!-- 代理服务器配置 -->
+	<proxies />
+	<!-- 通过Profile机制，将 POM 中的一些配置放到settings.xml中的Profile中 -->
+	<profiles>
+		<profile>
+			<id>nexus</id>
+			<properties>
+				<nexus.host>http://search.maven.org</nexus.host>
+			</properties>
+			<!-- 远程仓库配置，下载与上传通过此配置的仓库。该配置覆盖了pom.xml中的 repositories -->
+			<repositories>
+				<repository>
+					<id>nexus</id>
+					<name>Repository for Local Nexus Server</name>
+					<url>${nexus.host}/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<!-- 从远程仓库检查更新的频率：dailly——每天检查一次，默认值；never——从不更新；always——每次构建都检查更新；interval:x——间隔x分钟检查一次； -->
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>nexus</id>
+					<name>Plugin Repository for Local Nexus Server</name>
+					<url>${nexus.host}/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</releases>
+					<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>nexus</activeProfile>
+	</activeProfiles>
+</settings>
+
